@@ -1,5 +1,5 @@
 # Dotfiles
-this project is just my dotfiles, feel free to use and get inpiration from it.
+This project is just my dotfiles, feel free to use and get inpiration from it.
 
 ## Install
   1. Clone the repo
