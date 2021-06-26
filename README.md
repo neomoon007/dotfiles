@@ -4,7 +4,7 @@ This project is just my dotfiles, feel free to use and get inpiration from it.
 ## Install
   1. Clone the repo
   ```
-  git clone https://github.com/neomoon007/dotfiles/
+  git clone https://github.com/neomoon007/dotfiles.git
   ```
   
   2. Run stow to link it
