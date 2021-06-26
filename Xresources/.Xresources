@@ -1,0 +1,46 @@
+! Font
+*faceName:	DejaVuSansMono Nerd Font Mono
+*faceSize:	14
+*renderFont:	true
+
+! Copy and Paste feature
+xterm*selectToClipboard:	true
+
+! Xresources Colors !
+
+! special
+*.foreground:   #add7f1
+*.background:   #211f1d
+*.cursorColor:  #add7f1
+
+! black
+*.color0:       #404040
+*.color8:       #484848
+
+! red
+*.color1:       #ff0983
+*.color9:       #ff1f8e
+
+! green
+*.color2:       #83ff1f
+*.color10:      #8eff1f
+
+! yellow
+*.color3:       #ff8309
+*.color11:      #ff8e1f
+
+! blue
+*.color4:       #0983ff
+*.color12:      #1f8eff
+
+! magenta
+*.color5:       #8309ff
+*.color13:      #8e1fff
+
+! cyan
+*.color6:       #09ff83
+*.color14:      #1fff8e
+
+! white
+*.color7:       #bebebe
+*.color15:      #c4c4c4
