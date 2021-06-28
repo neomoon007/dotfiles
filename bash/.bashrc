@@ -3,18 +3,8 @@ EDITOR=vim
 BROWSER=librewolf
 TERM=alacritty
 
-# Function that display a simple prompt if I'm not in a graphical environment
-is_qtile_running() {
-	if [ "$(ps aux | sed -n /qtile/p | sed '/sed/d'): -0" == "" ]; then
-		echo "\u in \W" 
-	else
-	 	echo "\[\e[40m\]\[\e[1;37m\] \u \[\e[00m\]\[\e[30m\]\[\e[44m\]î˜‚ \[\e[30m\]\W \[\e[00m\]\[\e[34m\]î˜‚ \[\e[00m\]"
-	fi
-
-}
-
 # Setting custom prompt
-PS1="$(is_qtile_running)";
+PS1="\u in \W \n Â ";» »
 export PS1;
 
 # Aliases
@@ -27,3 +17,4 @@ alias rm="rm -i"
 alias e="exit"
 alias c="clear"
 alias ta="tree -aL"
+alias tor="cd tor-browser_en-US/ && ./start-tor-browser.desktop && cd "
