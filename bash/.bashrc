@@ -4,7 +4,7 @@ BROWSER=librewolf
 TERM=alacritty
 
 # Setting custom prompt
-PS1="\u in \W \n Â ";» »
+PS1="\u in \W \n-> ";
 export PS1;
 
 # Aliases
