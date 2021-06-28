@@ -3,8 +3,15 @@ EDITOR=vim
 BROWSER=librewolf
 TERM=alacritty
 
+# PS1 Colors
+NOCOLOR="\[\033[00m\]"
+BCYAN="\[\033[1;36m\]"
+BBLACK="\[\033[1;34m\]"
+
+
+
 # Setting custom prompt
-PS1="\u in \W \n-> ";
+PS1="$BCYAN\u$NOCOLOR in $BBLACK\W $NOCOLOR\n-> ";
 export PS1;
 
 # Aliases
