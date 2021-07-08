@@ -80,8 +80,7 @@ keys = [
 
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "e", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
+    Key([mod], "e", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
@@ -101,8 +100,8 @@ for i in groups:
         #     desc="move focused window to group {}".format(i.name)),
     ])
 
-layouts = [  layout.Tile(margin=4, border_width=2, border_focus="#d3d3d3", border_normal="#909090"),
-             layout.Max(margin=0, border_width=0, border_focus="#d3d3d3", border_normal="#909090"),
+layouts = [  layout.Max(margin=0, border_width=0, border_focus="#d3d3d3", border_normal="#909090"),
+             layout.Tile(margin=4, border_width=2, border_focus="#d3d3d3", border_normal="#909090"),
              layout.MonadWide(margin=2, border_width=2, border_focus="#d3d3d3", border_normal="#909090"),
              layout.Columns(margin=2, border_width=2, border_focus="#d3d3d3", border_normal="#909090")
              
