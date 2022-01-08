@@ -33,7 +33,7 @@ from libqtile.utils import guess_terminal
 
 mod = "mod4"
 terminal = "alacritty"
-browser = "librewolf"
+browser = "firefox"
 
 keys = [
     # Switch between windows
@@ -72,21 +72,22 @@ keys = [
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "b",lazy.spawn(browser), desc="Launch browser"),
 
+    Key([mod], "b", lazy.spawn(browser), desc="Launch Browser"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
 
-    Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
+    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "e", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "r", lazy.spawncmd(),
+        desc="Spawn a command using a prompt widget"),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
 
 for i in groups:
-    keys.extend([
+        keys.extend([
         # mod1 + letter of group = switch to group
         Key([mod], i.name, lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
@@ -98,13 +99,13 @@ for i in groups:
         # # mod1 + shift + letter of group = move focused window to group
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
         #     desc="move focused window to group {}".format(i.name)),
-    ])
+                                                                                ])
 
 layouts = [  layout.Max(margin=0, border_width=0, border_focus="#d3d3d3", border_normal="#909090"),
              layout.Tile(margin=4, border_width=2, border_focus="#d3d3d3", border_normal="#909090"),
              layout.MonadWide(margin=2, border_width=2, border_focus="#d3d3d3", border_normal="#909090"),
              layout.Columns(margin=2, border_width=2, border_focus="#d3d3d3", border_normal="#909090")
-             
+                                                                    
 #            layout.Stack(num_stacks=2),
 #            layout.Bsp(),
 #            layout.Matrix(),
@@ -114,32 +115,33 @@ layouts = [  layout.Max(margin=0, border_width=0, border_focus="#d3d3d3", border
 #            layout.VerticalTile(),
 #            layout.Zoomy(),
 
-          ]
+]
 
 widget_defaults = dict(
-    font='DejaVuSansMono Nerd Font Mono',
+    font='Adobe Helvetica',
     fontsize=12,
     padding=3,
 )
+
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
         top=bar.Bar(
-            [
-             widget.TextBox("Battery"),
-             widget.Battery(format='{percent:2.0%}'),
-             widget.TextBox("|"),
-             widget.TextBox("Volume"),
-             widget.Volume(),
-             widget.TextBox("|"),
-             widget.Clock(),
-             widget.TextBox("|"),
-             widget.GroupBox(),
-             widget.Prompt(),
-                ],
-            24,
-            background="211f1d",
+           [
+            widget.TextBox("Battery"),
+            widget.Battery(format='{percent:2.0%}'),
+            widget.TextBox("|"),
+            widget.TextBox("Volume"),
+            widget.Volume(),
+            widget.TextBox("|"),                          
+            widget.Clock(),  
+            widget.TextBox("|"),
+            widget.GroupBox(),
+            widget.Prompt(), 
+               ], 
+           24,  
+           background="211f1d",
         ),
     ),
 ]
@@ -155,8 +157,7 @@ mouse = [
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
-main = None  # WARNING: this is deprecated and will be removed soon
-follow_mouse_focus = False
+follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
@@ -171,6 +172,11 @@ floating_layout = layout.Floating(float_rules=[
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+reconfigure_screens = True
+
+# If things like steam games want to auto-minimize themselves when losing
+# focus, should we respect this or not?
+auto_minimize = True
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

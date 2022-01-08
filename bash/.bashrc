@@ -1,27 +1,21 @@
 # Environment
 EDITOR=vim
-BROWSER=librewolf
+BROWSER=firefox
 TERM=alacritty
 
+# Export VIMINIT variable
+export VIMINIT='source ~/.vim/.vimrc'
+export MYVIMRC='~/.vim/.vimrc'
 # PS1 Colors
-NOCOLOR="\[\033[00m\]"
-BCYAN="\[\033[1;36m\]"
-BBLACK="\[\033[1;34m\]"
-
-
+NOCOLOR="\[\033[00\]"
+BCYAN="\[\033[1;36\]" 
+BBBLACK="\[\033[1;34\]"
 
 # Setting custom prompt
-PS1="$BCYAN\u$NOCOLOR in $BBLACK\W $NOCOLOR\n-> ";
+PS1="\u in \W \n-> ";
 export PS1;
 
 # Aliases
 alias ..="cd .."
-alias ll="exa -la --color=always"
-alias ls="exa --color=always"
-alias la="exa -a --color=always"
-alias grep="grep --color=auto"
-alias rm="rm -i"
-alias e="exit"
-alias c="clear"
+alias la="exa -la"
 alias ta="tree -aL"
-alias tor="cd tor-browser_en-US/ && ./start-tor-browser.desktop && cd "

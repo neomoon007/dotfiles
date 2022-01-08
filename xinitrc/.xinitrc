@@ -51,10 +51,6 @@ fi
 #		PERSONAL CONFIG
 ###########################################################
 
-
-# Set up keyboard layout
-setxkbmap -model asus_laptop -layout br 
-
 # Fix Volume control keys
 xbindkeys
 
