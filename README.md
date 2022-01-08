@@ -14,7 +14,7 @@ This project is just my dotfiles, feel free to use and get inpiration from it.
   ```
   ***Some advices here, "~" is the path where you're gonna symlink the files,
   so make sure the dotfiles's parent directory is your home directory,
-  other wise just change the oath there,***
+  other wise just change the path there,***
   
   3. Linking just specific files
   ```
