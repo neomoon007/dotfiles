@@ -47,8 +47,10 @@ let maplocalleader = "\\"
 " Automatic closing brackets
 inoremap ( ()<left>
 inoremap [ []<left>
-inoremap < <><left>
 inoremap { {}<left>
+
+" Auto <> closing tag in HTML
+au BufNewFile,BufRead *.html inoremap < <><left>
 
 " Move lines down(-) and up(_)
 noremap - ddp
@@ -110,13 +112,16 @@ autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>uc 0v2ld$v2hd
 
 au BufNewFile *.html 0read ~/.vim/templates/skeleton.html
 
-" Function to let tab autocomplete in insert mode
+" Smart-Tab function, let it tab, autocomplete(insert mode) and jump to next
+" placeholder <++>
 function! CleverTab()
-    if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-		    return "\<Tab>"
-		else
-				return "\<C-N>"
-		endif
+	if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+		return "\<Tab>"
+	elseif search('<++>', 'n', line("w$"))
+		return "\<esc>/<++>\<cr>ciw"
+	else
+		return "\<C-N>"
+	endif
 endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
 
