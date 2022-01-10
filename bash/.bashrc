@@ -19,3 +19,4 @@ export PS1;
 alias ..="cd .."
 alias la="exa -la"
 alias ta="tree -aL"
+alias ev="vim dotfiles/vim/.vimrc"

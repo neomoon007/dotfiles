@@ -1,3 +1,4 @@
+" Basic Settings ---------------------- {{{
 " Make it work like Vim, not Vi
 set nocompatible
 filetype off
@@ -18,7 +19,6 @@ Plugin 'myusuf3/numbers.vim'
 call vundle#end()
 
 filetype plugin indent on
-" Make it work as vim and not vi
 
 " Set gruvbox colorscheme
 colorscheme gruvbox
@@ -44,14 +44,10 @@ set wildmenu
 let mapleader = ";"
 let maplocalleader = "\\"
 
-" Automatic closing brackets
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-
-" Auto <> closing tag in HTML
-au BufNewFile,BufRead *.html inoremap < <><left>
-
+" Disable autocomments by Vim
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" }}}
+" Mappings ---------------------- {{{
 " Move lines down(-) and up(_)
 noremap - ddp
 noremap _ dd2kp
@@ -85,45 +81,83 @@ vnoremap <leader>' xi''<esc>hp
 nnoremap H 0
 nnoremap L $
 
-" Disable arrow keys
-inoremap <left> <nop>
-inoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-
-" Disable Esc in Insert Mode, use jk instead
-inoremap <esc> <nop>
+" Use jk to exit insert mode
 inoremap jk <esc>
 
-" Add and remove comments
-" HTML
-autocmd BufNewFile,BufRead *.html nnoremap <buffer> <localleader>c I<!-- <esc>A --><esc>
-autocmd BufNewFile,BufRead *.html nnoremap <buffer> <localleader>uc 0/- <cr>lv0d$v3hd
-" JS
-autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
-autocmd FileType javascript nnoremap <buffer> <localleader>uc 0v2ld
-" CSS
-autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>c I/* <esc>A */<esc>
-autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>uc 0v2ld$v2hd
-
-au BufNewFile *.html 0read ~/.vim/templates/skeleton.html
-
-" Smart-Tab function, let it tab, autocomplete(insert mode) and jump to next
+" Smart-Tab function, let it tab and autocomplete(insert mode)
 " placeholder <++>
 function! CleverTab()
 	if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
 		return "\<Tab>"
-	elseif search('<++>', 'n', line("w$"))
-		return "\<esc>/<++>\<cr>ciw"
 	else
 		return "\<C-N>"
 	endif
 endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
 
-" html autocomplete words
-au BufNewFile,BufRead *.html set cpt=k~/.vim/autocomplete/html.txt,i
+" Smart-Return function, let it enter a line and go to placeholder
+function! CleverReturn()
+	if search('<++>', 'n', line("w$"))
+		return "\<esc>/<++>\<cr>vf>c"
+	else
+		return "\<enter>"
+	endif
+endfunction
+inoremap <CR> <C-R>=CleverReturn()<CR>
+" }}}
+" Filetype-specific settings ---------------------- {{{
+" Add and remove comments
+augroup commentbind
+	autocmd!
+	" HTML
+	autocmd BufNewFile,BufRead *.html nnoremap <buffer> <localleader>c I<!-- <esc>A --><esc>
+	autocmd BufNewFile,BufRead *.html nnoremap <buffer> <localleader>uc $xxxx0f<h6x
+	" JS
+	autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
+	autocmd FileType javascript nnoremap <buffer> <localleader>uc 0v2ld
+	" CSS
+	autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>c I/* <esc>A */<esc>
+	autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>uc $xxx0f/xxx 
+augroup end
+
+" Reindent html, css and js files when opening one
+augroup indentgroup
+	autocmd!
+	autocmd BufWritePre,BufRead *.html,*.css,*.js :normal gg=G
+augroup end
+
+" HTML template
+augroup templategroup
+	autocmd!
+	au BufNewFile *.html 0read ~/.vim/templates/skeleton.html
+augroup end
+
+" HTML autocomplete words
+augroup autocomplwords
+	autocmd!
+	au BufNewFile,BufRead *.html set cpt=k~/.vim/autocomplete/html.txt,i
+augroup end
+
+" javascript function abbreviation
+augroup functionabbrev
+	autocmd!
+	au Filetype javascript :iabbrev fun function (<++>) {<cr><++><cr>}<cr><++><esc>3k0f(i
+	au BufNewFile,BufRead *.vim :iabbrev fun function! ()<cr><++><cr>endfunction<cr><++><esc>3k0f(i
+augroup end
+
+" vimscript if statement abbreviation
+augroup ifabbrev
+	autocmd!
+	au BufNewFile,BufRead *.vim :iabbrev iff if<cr><++><cr>endif<cr><++><esc>3k0A
+augroup end
+
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" CSS better-brackets
+augroup better_brackets
+	autocmd!
+	autocmd BufNewFile,BufRead *.css :iabbrev <buffer> { {<cr><cr>}<cr><cr><++><esc>4k0f{<cr>A
+augroup END
+" }}}
