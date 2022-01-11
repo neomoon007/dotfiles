@@ -31,14 +31,14 @@ set number relativenumber
 syntax enable
 
 " Set tab width equals 2 spaces
-set shiftwidth = 2
-set tabstop = 2
+set shiftwidth=2
+set tabstop=2
 
 " Let you tab-complete file paths
 set path+=**
 
 " Shows you all matching files when we tab-complete
-set wildmenu = 1
+set wildmenu
 
 " Set Leader and Local Leader
 let mapleader = ";"
