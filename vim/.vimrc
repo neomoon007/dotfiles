@@ -85,7 +85,6 @@ nnoremap L $
 inoremap jk <esc>
 
 " Smart-Tab function, let it tab and autocomplete(insert mode)
-" placeholder <++>
 function! CleverTab()
 	if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
 		return "\<Tab>"
@@ -95,15 +94,19 @@ function! CleverTab()
 endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
 
-" Smart-Return function, let it enter a line and go to placeholder
+" Return in normal mode jumps to placeholder
+inoremap <c-j> <esc>/<++><cr>vf>c
+" Former CleverReturn() Function {{{
 function! CleverReturn()
-	if search('<++>', 'n', line("w$"))
+	if strpart( getline('.'), col('.')+1) =~ '^\s*$'
+		return "\<enter>"
+	elseif search('<++>', 'n', line("w$"))
 		return "\<esc>/<++>\<cr>vf>c"
 	else
 		return "\<enter>"
 	endif
 endfunction
-inoremap <CR> <C-R>=CleverReturn()<CR>
+" }}}
 " }}}
 " Filetype-specific settings ---------------------- {{{
 " Add and remove comments
@@ -158,6 +161,6 @@ augroup END
 " CSS better-brackets
 augroup better_brackets
 	autocmd!
-	autocmd BufNewFile,BufRead *.css :iabbrev <buffer> { {<cr><cr>}<cr><cr><++><esc>4k0f{<cr>A
+	autocmd BufNewFile,BufRead *.css :iabbrev <buffer> { {<cr>}<cr><cr><++><esc>3kA
 augroup END
 " }}}
