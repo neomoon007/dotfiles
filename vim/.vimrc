@@ -124,6 +124,9 @@ augroup commentbind
 	" CSS
 	autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>c I/* <esc>A */<esc>
 	autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>uc $xxx0f/xxx 
+	" VIML
+	autocmd FileType vim nnoremap <buffer> <localleader>c I" <esc>
+	autocmd FileType vim nnoremap <buffer> <localleader>uc 0vld
 augroup end
 
 " Reindent html, css and js files when opening one
