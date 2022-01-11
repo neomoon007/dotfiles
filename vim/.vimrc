@@ -84,6 +84,9 @@ nnoremap L $
 " Use jk to exit insert mode
 inoremap jk <esc>
 
+" Use <space> to toggle folds
+nnoremap <space> za
+
 " Smart-Tab function, let it tab and autocomplete(insert mode)
 function! CleverTab()
 	if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
