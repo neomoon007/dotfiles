@@ -25,20 +25,20 @@ colorscheme gruvbox
 set background=dark
 
 " Set line numbers
-set number relativenumber 
+set number relativenumber
 
 " Enable syntax highlighting
 syntax enable
 
-" Set tab width equals 4 spaces
-set shiftwidth=2
-set tabstop=2
+" Set tab width equals 2 spaces
+set shiftwidth = 2
+set tabstop = 2
 
 " Let you tab-complete file paths
 set path+=**
 
 " Shows you all matching files when we tab-complete
-set wildmenu
+set wildmenu = 1
 
 " Set Leader and Local Leader
 let mapleader = ";"
@@ -112,6 +112,11 @@ endfunction
 " }}}
 " }}}
 " Filetype-specific settings ---------------------- {{{
+" Wrap word with tag brackets
+augroup auto_tags
+	autocmd!
+	autocmd BufNewFile,BufRead *.html inoremap <localleader>t <esc>diwi<></><esc>4hp3lpcit
+augroup END
 " Add and remove comments
 augroup commentbind
 	autocmd!

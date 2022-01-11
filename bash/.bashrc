@@ -5,7 +5,7 @@ TERM=alacritty
 
 # Export VIMINIT variable
 export VIMINIT='source ~/.vim/.vimrc'
-export MYVIMRC='~/.vim/.vimrc'
+export MYVIMRC='~/dotfiles/vim/.vimrc'
 # PS1 Colors
 NOCOLOR="\[\033[00\]"
 BCYAN="\[\033[1;36\]" 

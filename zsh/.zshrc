@@ -11,7 +11,7 @@ SAVEHIST=1000
 
 # Export VIMINIT variable
 export VIMINIT='source ~/.vim/.vimrc'
-export MYVIMRC='~/.vim/.vimrc'
+export MYVIMRC='~/dotfiles/vim/.vimrc'
 
 # Autocomplete
 autoload -U compinit
