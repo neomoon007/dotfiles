@@ -3,8 +3,11 @@
 set nocompatible
 filetype off
 
-" Make it wrap the lines
-set wrap
+" Trying to fix syntax highlighting
+set redrawtime=10000
+
+" Don't let it wrap the lines
+set nowrap
 
 " Makes vim recognise vundle
 set runtimepath+=~/.vim/bundle/Vundle.vim
@@ -45,7 +48,16 @@ let mapleader = ";"
 let maplocalleader = "\\"
 
 " Disable autocomments by Vim
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup disautocomments
+	autocmd!
+	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup END
+
+" Reindent file when write
+augroup reindent
+	autocmd!
+	autocmd BufWrite * normal! gg=G
+augroup END
 " }}}
 " Mappings ---------------------- {{{
 " Move lines down(-) and up(_)
