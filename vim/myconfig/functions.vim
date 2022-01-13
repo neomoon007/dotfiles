@@ -13,14 +13,14 @@ function! Comment_Uncomment_Line()
 		let call_func = "call Comment_Uncomment_Line_" . &filetype . "()"
 		execute call_func
 	else
-		echo "language not supported yet"
+		echo "autocomment shotcut doesn't work on this filetype"
 	endif
 endfunction
 nnoremap <localleader>c :call Comment_Uncomment_Line()<cr>
 
 function! Comment_Uncomment_Line_vim()
 	if matchstr( strpart( getline("."), 0, 2), "\"") ==? "\""
-		execute "normal! 0vldmfgg=G`f"
+		execute "normal! 0vld"
 	else
 		execute "normal! I\" \<esc>"
 	endif

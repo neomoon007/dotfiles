@@ -26,7 +26,7 @@ alias e="exit"
 alias c="clear"
 alias ta="tree -aL"
 alias ..="cd .."
-alias ev="vim dotfiles/vim/.vimrc"
+alias ev="cd && vim dotfiles/vim/.vimrc"
 
 # Syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

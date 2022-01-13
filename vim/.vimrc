@@ -1,6 +1,6 @@
 " Basic Settings ---------------------- {{{
 " Source my config
-source dotfiles/vim/myconfig/functions.vim
+source /home/neo/dotfiles/vim/myconfig/functions.vim
 
 " Make it work like Vim, not Vi
 set nocompatible
