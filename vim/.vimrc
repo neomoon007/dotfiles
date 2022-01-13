@@ -1,4 +1,7 @@
 " Basic Settings ---------------------- {{{
+" Source my config
+source dotfiles/vim/myconfig/functions.vim
+
 " Make it work like Vim, not Vi
 set nocompatible
 filetype off
@@ -53,11 +56,6 @@ augroup disautocomments
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 augroup END
 
-" Reindent file when write
-augroup reindent
-	autocmd!
-	autocmd BufWrite * normal! gg=G
-augroup END
 " }}}
 " Mappings ---------------------- {{{
 " Move lines down(-) and up(_)
@@ -99,17 +97,7 @@ inoremap jk <esc>
 " Use <space> to toggle folds
 nnoremap <space> za
 
-" Smart-Tab function, let it tab and autocomplete(insert mode)
-function! CleverTab()
-	if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-		return "\<Tab>"
-	else
-		return "\<C-N>"
-	endif
-endfunction
-inoremap <Tab> <C-R>=CleverTab()<CR>
-
-" Return in normal mode jumps to placeholder
+" Return jumps to placeholder in normal mode 
 inoremap <c-j> <esc>/<++><cr>vf>c
 " Former CleverReturn() Function {{{
 function! CleverReturn()
@@ -129,7 +117,7 @@ augroup auto_tags
 	autocmd!
 	autocmd BufNewFile,BufRead *.html inoremap <localleader>t <esc>diwi<></><esc>4hp3lpcit
 augroup END
-" Add and remove comments
+" Add and remove comments {{{
 augroup commentbind
 	autocmd!
 	" HTML
@@ -142,9 +130,10 @@ augroup commentbind
 	autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>c I/* <esc>A */<esc>
 	autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>uc $xxx0f/xxx 
 	" VIML
-	autocmd FileType vim nnoremap <buffer> <localleader>c I" <esc>
-	autocmd FileType vim nnoremap <buffer> <localleader>uc 0vld
+	" autocmd FileType vim nnoremap <buffer> <localleader>c I" <esc>
+	" autocmd FileType vim nnoremap <buffer> <localleader>uc 0vld
 augroup end
+" }}}
 
 " Reindent html, css and js files when opening one
 augroup indentgroup
@@ -167,8 +156,8 @@ augroup end
 " javascript function abbreviation
 augroup functionabbrev
 	autocmd!
-	au Filetype javascript :iabbrev fun function (<++>) {<cr><++><cr>}<cr><++><esc>3k0f(i
-	au BufNewFile,BufRead *.vim :iabbrev fun function! ()<cr><++><cr>endfunction<cr><++><esc>3k0f(i
+	autocmd Filetype javascript :iabbrev fun function (<++>) {<cr><++><cr>}<cr><++><esc>3k0f(i
+	autocmd BufNewFile,BufRead *.vim :iabbrev fun function! ()<cr><++><cr>endfunction<cr><++><esc>3k0f(i
 augroup end
 
 " vimscript if statement abbreviation
@@ -185,5 +174,11 @@ augroup END
 augroup better_brackets
 	autocmd!
 	autocmd BufNewFile,BufRead *.css :iabbrev <buffer> { {<cr>}<cr><cr><++><esc>3kA
+augroup END
+
+" Reindent file when write
+augroup reindent_html
+	autocmd!
+	autocmd BufWrite *.html normal! megg=`e
 augroup END
 " }}}
