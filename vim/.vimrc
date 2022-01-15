@@ -157,6 +157,7 @@ augroup end
 augroup functionabbrev
 	autocmd!
 	autocmd Filetype javascript :iabbrev fun function (<++>) {<cr><++><cr>}<cr><++><esc>3k0f(i
+	" )
 	autocmd BufNewFile,BufRead *.vim :iabbrev fun function! ()<cr><++><cr>endfunction<cr><++><esc>3k0f(i
 augroup end
 
@@ -173,7 +174,7 @@ augroup END
 " CSS better-brackets
 augroup better_brackets
 	autocmd!
-	autocmd BufNewFile,BufRead *.css :iabbrev <buffer> { {<cr>}<cr><cr><++><esc>3kA
+	autocmd BufNewFile,BufRead *.css :iabbrev <buffer> { {<cr>}<cr><esc>3kA
 augroup END
 
 " Reindent file when write
