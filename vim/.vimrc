@@ -1,185 +1,94 @@
-" Basic Settings ---------------------- {{{
-" Source my config
-source /home/neo/dotfiles/vim/myconfig/functions.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  PLUGINS                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Make it work like Vim, not Vi
-set nocompatible
-filetype off
+call plug#begin()
 
-" Trying to fix syntax highlighting
-set redrawtime=10000
+" Snippets engine and snippets repo
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-" Don't let it wrap the lines
-set nowrap
+" Emmet plugin for Ultisnips
+Plug 'adriaanzon/vim-emmet-ultisnips'
 
-" Makes vim recognise vundle
-set runtimepath+=~/.vim/bundle/Vundle.vim
+" Gruvbox colorscheme
+Plug 'gruvbox-community/gruvbox'
 
-" Calls for the plugins
-call vundle#begin('~/.vim/improvments')
+" One dark colorscheme
+Plug 'joshdick/onedark.vim'
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'myusuf3/numbers.vim'
+" Autocompletion plugin and its dependencies
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
-call vundle#end()
+call plug#end()
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               BASIC SETTINGS                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use :help <subject> to know more about the setting (E.g. :help nowrap)
 
 filetype plugin indent on
+set autoindent
+set completeopt=menuone,preview,noinsert
+let g:deoplete#enable_at_startup = 1
+set nowrap
+set number relativenumber
+set path+=**
+set shortmess+=c
+set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 
-" Set gruvbox colorscheme
+let mapleader = ";"
+let maplocalleader = "\<space>"
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   COLORS                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Fix colors
+if (has("termguicolors"))
+" https://github.com/vim/vim/issues/993#issuecomment-255651605
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+        set termguicolors
+endif
+
+" Use Gruvbox colorscheme
 colorscheme gruvbox
 set background=dark
+let g:gruvbox_contrast_light='hard'
 
-" Set line numbers
-set number relativenumber
 
-" Enable syntax highlighting
-syntax enable
 
-" Set tab width equals 2 spaces
-set shiftwidth=2
-set tabstop=2
 
-" Let you tab-complete file paths
-set path+=**
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  MAPPINGS                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Shows you all matching files when we tab-complete
-set wildmenu
-
-" Set Leader and Local Leader
-let mapleader = ";"
-let maplocalleader = "\\"
-
-" Disable autocomments by Vim
-augroup disautocomments
-	autocmd!
-	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-augroup END
-
-" }}}
-" Mappings ---------------------- {{{
-" Move lines down(-) and up(_)
-noremap - ddp
-noremap _ dd2kp
-
-" Uppercase the current word
-inoremap <leader>u <esc>viwU<esc>i
-nnoremap <leader>u viwU<esc>
-
-" Edit $MYVIMRC file
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-
-" Source $MYVIMRC file
-nnoremap <leader>sv :source $MYVIMRC<cr> 
-
-" Abbreviations
-iabbrev @@ costamarcos404@gmail.com
-iabbrev ccopy Copyright 2022 Marcos Costa, all rights reserved.
-
-" Spawn dummy text
-nnoremap <leader>dm :read ~/.vim/templates/dummy.txt<cr>
-
-" Put double and single quotes surrounding the current word
-nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
-nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
-
-" Put double and single quotes surrounding the current visual selection
-vnoremap <leader>" xi""<esc>hp
-vnoremap <leader>' xi''<esc>hp
-
-" Moving faster with H and L
-nnoremap H 0
-nnoremap L $
-
-" Use jk to exit insert mode
+" Use jk to exit insert more
 inoremap jk <esc>
 
-" Use <space> to toggle folds
-nnoremap <space> za
+" Make <Tab> snippet, insert selected autocompletion candidate or normal <tab>
+inoremap <buffer> <tab> <c-r>=(UltiSnips#CanExpandSnippet() ? UltiSnips#ExpandSnippet() : pumvisible() ? "\r" : "\t" )<cr>
 
-" Return jumps to placeholder in normal mode 
-inoremap <c-j> <esc>/<++><cr>vf>c
-" Former CleverReturn() Function {{{
-function! CleverReturn()
-	if strpart( getline('.'), col('.')+1) =~ '^\s*$'
-		return "\<enter>"
-	elseif search('<++>', 'n', line("w$"))
-		return "\<esc>/<++>\<cr>vf>c"
-	else
-		return "\<enter>"
-	endif
-endfunction
-" }}}
-" }}}
-" Filetype-specific settings ---------------------- {{{
-" Wrap word with tag brackets
-augroup auto_tags
-	autocmd!
-	autocmd BufNewFile,BufRead *.html inoremap <localleader>t <esc>diwi<></><esc>4hp3lpcit
-augroup END
-" Add and remove comments {{{
-augroup commentbind
-	autocmd!
-	" HTML
-	autocmd BufNewFile,BufRead *.html nnoremap <buffer> <localleader>c I<!-- <esc>A --><esc>
-	autocmd BufNewFile,BufRead *.html nnoremap <buffer> <localleader>uc $xxxx0f<h6x
-	" JS
-	autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
-	autocmd FileType javascript nnoremap <buffer> <localleader>uc 0v2ld
-	" CSS
-	autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>c I/* <esc>A */<esc>
-	autocmd BufNewFile,BufRead *.css nnoremap <buffer> <localleader>uc $xxx0f/xxx 
-	" VIML
-	" autocmd FileType vim nnoremap <buffer> <localleader>c I" <esc>
-	" autocmd FileType vim nnoremap <buffer> <localleader>uc 0vld
-augroup end
-" }}}
+" Move lines up("_") and down("-")
+nnoremap - ddp
+nnoremap _ dd2kp
 
-" Reindent html, css and js files when opening one
-augroup indentgroup
-	autocmd!
-	autocmd BufWritePre,BufRead *.html,*.css,*.js :normal gg=G
-augroup end
+" Edit .vimrc file
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
-" HTML template
-augroup templategroup
-	autocmd!
-	au BufNewFile *.html 0read ~/.vim/templates/skeleton.html
-augroup end
+" Source my .vimrc file
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" HTML autocomplete words
-augroup autocomplwords
-	autocmd!
-	au BufNewFile,BufRead *.html set cpt=k~/.vim/autocomplete/html.txt,i
-augroup end
-
-" javascript function abbreviation
-augroup functionabbrev
-	autocmd!
-	autocmd Filetype javascript :iabbrev fun function (<++>) {<cr><++><cr>}<cr><++><esc>3k0f(i
-	" )
-	autocmd BufNewFile,BufRead *.vim :iabbrev fun function! ()<cr><++><cr>endfunction<cr><++><esc>3k0f(i
-augroup end
-
-" vimscript if statement abbreviation
-augroup ifabbrev
-	autocmd!
-	au BufNewFile,BufRead *.vim :iabbrev iff if<cr><++><cr>endif<cr><++><esc>3k0A
-augroup end
-
-augroup filetype_vim
-	autocmd!
-	autocmd FileType vim setlocal foldmethod=marker
-augroup END
-" CSS better-brackets
-augroup better_brackets
-	autocmd!
-	autocmd BufNewFile,BufRead *.css :iabbrev <buffer> { {<cr>}<cr><esc>3kA
-augroup END
-
-" Reindent file when write
-augroup reindent_html
-	autocmd!
-	autocmd BufWrite *.html normal! megg=`e
-augroup END
-" }}}
+" Use H and L to move between start and end of the lines
+nnoremap H 0
+nnoremap L $
