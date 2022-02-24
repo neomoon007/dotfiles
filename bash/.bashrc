@@ -6,6 +6,7 @@ TERM=alacritty
 # Export VIMINIT variable
 export VIMINIT='source ~/.vim/.vimrc'
 export MYVIMRC='~/dotfiles/vim/.vimrc'
+
 # PS1 Colors
 NOCOLOR="\[\033[00\]"
 BCYAN="\[\033[1;36\]" 
@@ -20,3 +21,6 @@ alias ..="cd .."
 alias la="exa -la"
 alias ta="tree -aL"
 alias ev="cd && vim dotfiles/vim/.vimrc"
+
+# Load nvm
+source /usr/share/nvm/init-nvm.sh
