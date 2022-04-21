@@ -74,6 +74,7 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 
     Key([mod], "b", lazy.spawn(browser), desc="Launch Browser"),
+    Key([mod], "o", lazy.spawn("/home/neo/./Obsidian.AppImage"), desc="Launch Obsidian"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
